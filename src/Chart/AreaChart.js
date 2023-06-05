@@ -1,10 +1,11 @@
 import React from 'react'
 import pdata from '../util/constant'
-import {Area,AreaChart,XAxis,YAxis,Tooltip,Legend} from 'recharts'
+import {ResponsiveContainer,Area,AreaChart,XAxis,YAxis,Tooltip,Legend} from 'recharts'
 export default function AreaCharts() {
   return(
     <>
         <h1 className='chart-heading'> Area Chart</h1>
+        <ResponsiveContainer width="100%" aspect={3} >
         <AreaChart
   width={930}
   height={350}
@@ -17,6 +18,7 @@ export default function AreaCharts() {
   <Tooltip />
   <Legend/>
 </AreaChart>
+</ResponsiveContainer>
     </>
   )
 }
