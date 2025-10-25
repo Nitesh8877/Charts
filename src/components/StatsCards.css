@@ -1,0 +1,253 @@
+.stats-section {
+  margin-bottom: 30px;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.stats-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.period-select {
+  padding: 8px 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.period-select.light {
+  background: white;
+  color: var(--text-light);
+}
+
+.period-select.dark {
+  background: var(--card-dark);
+  color: var(--text-dark);
+  border-color: var(--border-dark);
+}
+
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.stat-card.light {
+  background: var(--card-light);
+  border-color: var(--border-light);
+}
+
+.stat-card.dark {
+  background: var(--card-dark);
+  border-color: var(--border-dark);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.stat-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.stat-content {
+  flex: 1;
+  min-width: 0; /* Prevent text overflow */
+}
+
+.stat-title {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  word-break: break-word;
+}
+
+.stat-change {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.stat-change.positive {
+  color: var(--success-color);
+}
+
+.stat-change.negative {
+  color: var(--error-color);
+}
+
+.stat-sparkline {
+  width: 80px;
+  height: 40px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.sparkline {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 100%;
+  width: 100%;
+}
+
+.sparkline-bar {
+  flex: 1;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+  min-height: 2px;
+}
+
+.stat-footer {
+  border-top: 1px solid var(--border-light);
+  padding-top: 12px;
+}
+
+.stat-card.dark .stat-footer {
+  border-top-color: var(--border-dark);
+}
+
+.stat-description {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .stats-section {
+    margin-bottom: 20px;
+  }
+  
+  .stats-header {
+    margin-bottom: 15px;
+  }
+  
+  .stats-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .stats-cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .stat-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .stat-card.mobile {
+    padding: 15px;
+  }
+  
+  .stat-main {
+    margin-bottom: 0;
+    align-items: center;
+  }
+  
+  .stat-icon {
+    font-size: 2rem;
+    padding: 10px;
+    margin-right: 12px;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+  }
+  
+  .stat-change {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .stat-card {
+    padding: 12px;
+  }
+  
+  .stat-main {
+    gap: 10px;
+  }
+  
+  .stat-icon {
+    font-size: 1.8rem;
+    padding: 8px;
+    margin-right: 10px;
+  }
+  
+  .stat-value {
+    font-size: 1.3rem;
+  }
+  
+  .stat-title {
+    font-size: 0.8rem;
+  }
+  
+  .stat-change {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .stat-card {
+    padding: 10px;
+  }
+  
+  .stat-icon {
+    font-size: 1.5rem;
+    padding: 6px;
+  }
+  
+  .stat-value {
+    font-size: 1.1rem;
+  }
+}
