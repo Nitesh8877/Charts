@@ -19,7 +19,7 @@ export default function Dashboard() {
     const checkMobile = () => {
       const mobile = window.innerWidth < 1024
       setIsMobile(mobile)
-      // Auto-close sidebar when switching to mobile
+      // Auto-close sidebar when switching to mobile from desktop
       if (mobile && sidebarOpen) {
         setSidebarOpen(false)
       }
@@ -31,15 +31,31 @@ export default function Dashboard() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [sidebarOpen])
 
+  // Prevent body scroll when sidebar is open on mobile
+  useEffect(() => {
+    if (isMobile && sidebarOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [sidebarOpen, isMobile])
+
   const handleMenuClick = () => {
+    console.log('Menu clicked, opening sidebar')
     setSidebarOpen(true)
   }
 
   const handleSidebarClose = () => {
+    console.log('Closing sidebar')
     setSidebarOpen(false)
   }
 
   const handleTabChange = (tabId) => {
+    console.log('Changing tab to:', tabId)
     setActiveTab(tabId)
     if (isMobile) {
       setSidebarOpen(false)
@@ -47,7 +63,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className={`dashboard ${isDarkMode ? 'dark' : 'light'}`}>
+    <div className={`dashboard ${isDarkMode ? 'dark' : 'light'} ${sidebarOpen ? 'sidebar-open' : ''}`}>
       <Sidebar 
         isOpen={sidebarOpen} 
         onClose={handleSidebarClose}
@@ -55,7 +71,7 @@ export default function Dashboard() {
         setActiveTab={handleTabChange}
         isMobile={isMobile}
       />
-      <div className={`dashboard-main ${sidebarOpen && !isMobile ? 'sidebar-open' : ''}`}>
+      <div className="dashboard-main">
         <Header onMenuClick={handleMenuClick} isMobile={isMobile} />
         <div className="dashboard-content">
           {activeTab === 'overview' && (

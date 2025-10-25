@@ -226,3 +226,63 @@ body {
     min-width: 44px;
   }
 }
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.dashboard.light {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.dashboard.dark {
+  background: linear-gradient(135deg, #0f0f0f 0%, #2d2d2d 100%);
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+/* Mobile sidebar open state */
+.dashboard.sidebar-open .dashboard-main {
+  transform: translateX(10px);
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Rest of your existing Dashboard.css styles... */
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* Ensure proper touch targets on mobile */
+@media (max-width: 768px) {
+  button, 
+  .nav-item, 
+  .action-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* When sidebar is open on mobile, slightly shift the main content */
+  .dashboard.sidebar-open .dashboard-main {
+    transform: translateX(10px);
+    overflow: hidden;
+  }
+}

@@ -21,13 +21,44 @@ export default function Sidebar({ isOpen, onClose, activeTab, setActiveTab, isMo
       }
     }
 
+    const handleClickOutside = (e) => {
+      if (isOpen && e.target.classList.contains('sidebar-overlay')) {
+        onClose()
+      }
+    }
+
     document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+      document.removeEventListener('click', handleClickOutside)
+    }
   }, [isOpen, onClose])
 
+  // Prevent body scroll when sidebar is open on mobile
+  useEffect(() => {
+    if (isMobile && isOpen) {
+      document.body.classList.add('sidebar-open-mobile')
+    } else {
+      document.body.classList.remove('sidebar-open-mobile')
+    }
+
+    return () => {
+      document.body.classList.remove('sidebar-open-mobile')
+    }
+  }, [isOpen, isMobile])
+
   const handleNavItemClick = (tabId) => {
+    console.log('Nav item clicked:', tabId)
     setActiveTab(tabId)
-    onClose() // Always close sidebar after clicking a menu item
+    onClose()
+  }
+
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose()
+    }
   }
 
   return (
@@ -35,12 +66,13 @@ export default function Sidebar({ isOpen, onClose, activeTab, setActiveTab, isMo
       {isOpen && (
         <div 
           className="sidebar-overlay" 
-          onClick={onClose}
+          onClick={handleOverlayClick}
           aria-hidden="true"
-        ></div>
+        />
       )}
+      
       <aside 
-        className={`sidebar ${isOpen ? 'open' : ''} ${isDarkMode ? 'dark' : 'light'} ${isMobile ? 'mobile' : ''}`}
+        className={`sidebar ${isOpen ? 'sidebar-open' : 'sidebar-closed'} ${isDarkMode ? 'dark' : 'light'}`}
         aria-label="Main navigation"
         aria-hidden={!isOpen}
       >
@@ -50,37 +82,49 @@ export default function Sidebar({ isOpen, onClose, activeTab, setActiveTab, isMo
             <span className="brand-subtitle">Dashboard</span>
           </div>
           <button 
-            className="close-btn" 
+            className="sidebar-close-btn" 
             onClick={onClose}
             aria-label="Close sidebar"
           >
-            ✕
+            <span className="close-icon">×</span>
           </button>
         </div>
         
-        <nav className="sidebar-nav" aria-label="Primary navigation">
-          {menuItems.map(item => (
-            <button
-              key={item.id}
-              className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
-              onClick={() => handleNavItemClick(item.id)}
-              aria-current={activeTab === item.id ? 'page' : undefined}
-            >
-              <span className="nav-icon" aria-hidden="true">{item.icon}</span>
-              <span className="nav-label">{item.label}</span>
-            </button>
-          ))}
+        <nav className="sidebar-nav">
+          <div className="nav-section">
+            <div className="nav-section-label">Main Menu</div>
+            {menuItems.map(item => (
+              <button
+                key={item.id}
+                className={`nav-item ${activeTab === item.id ? 'nav-item-active' : ''}`}
+                onClick={() => handleNavItemClick(item.id)}
+                aria-current={activeTab === item.id ? 'page' : undefined}
+              >
+                <span className="nav-item-icon" aria-hidden="true">
+                  {item.icon}
+                </span>
+                <span className="nav-item-label">
+                  {item.label}
+                </span>
+                {activeTab === item.id && (
+                  <span className="nav-item-indicator" aria-hidden="true"></span>
+                )}
+              </button>
+            ))}
+          </div>
         </nav>
         
         <div className="sidebar-footer">
           <div className="user-profile">
-            <div className="profile-avatar" aria-hidden="true">NK</div>
-            <div className="profile-info">
-              <div className="profile-name">Nitesh Kumar</div>
-              <div className="profile-role">Admin</div>
-              <div className="profile-status">
-                <span className="status-indicator online"></span>
-                Online
+            <div className="user-avatar">
+              <span>NK</span>
+            </div>
+            <div className="user-info">
+              <div className="user-name">Nitesh Kumar</div>
+              <div className="user-role">Administrator</div>
+              <div className="user-status">
+                <span className="status-dot online"></span>
+                <span className="status-text">Online</span>
               </div>
             </div>
           </div>
