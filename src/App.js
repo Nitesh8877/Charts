@@ -1,20 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
-import LineChart from './Chart/LineChart'
-import BarChart from './Chart/BarChart'
-import AreaChart from './Chart/AreaChart'
-import ComposedChart from './Chart/ComposedChart'
-import PieCharts from './Chart/PieChart'
+import Dashboard from './components/Dashboard'
+import { ThemeProvider } from './context/ThemeContext'
 
 export default function App() {
-
   return (
-    <>
-    <LineChart/>
-    <BarChart/>
-    <AreaChart/>
-    <ComposedChart/>
-    <PieCharts/>
-    </>
+    <ThemeProvider>
+      <Dashboard />
+    </ThemeProvider>
   )
 }
